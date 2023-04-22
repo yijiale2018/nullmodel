@@ -1,0 +1,18 @@
+print('余度分布：')
+for idx,item in dic.items():
+    # 计算余度分布-原始图
+    degrees = nx.degree_histogram(item)
+    max_degree0 = max(degrees)
+    ar0 = np.zeros(max_degree0 + 1)
+    for u in item.nodes():  # 遍历每个节点
+        for v in item.neighbors(u):
+            if u==v:
+                ar0[item.degree(v)] += 2
+            else: ar0[item.degree(v)] += 1
+    ar0 = ar0[np.nonzero(ar0)]
+    x_ar0 = list(range(len(ar0) + 1))
+    sum_ar0 = sum(ar0)
+    for u in range(len(ar0)):
+        ar0[u] /= sum_ar0
+    Pnk0 = ar0
+    print(idx+":"+str(Pnk0))
